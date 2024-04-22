@@ -11,6 +11,18 @@ cgi = CGI.new
 
 # 住所を指定
 address = cgi['address']
+if address.match("^<.*>".length()>0)
+  puts <<EOF
+  <html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+  <h2>htmlタグは使用できません</h2>
+  </body>
+  </html>
+EOF
+end
 
 # Geocoding.jp APIのURLを構築
 url = URI("https://www.geocoding.jp/api/?q=#{URI.encode_www_form_component(address)}")
